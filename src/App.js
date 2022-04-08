@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Header } from "./components/Header";
+import Home from "./components/Home";
+import Reciters from "./components/Reciters";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import Context from "./components/Context";
+import Recitations from "./components/Recitations";
+import { AppProvider } from "./context/AppProvider";
+import { ReciterExtraDetailsContext } from "./context/ReciterExtraDetailsContext";
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <ReciterExtraDetailsContext>
+          <AppProvider>
+            <Context>
+              <Header>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/reciters" element={<Reciters />} />
+                  <Route path="/recitations" element={<Recitations />} />
+                </Routes>
+              </Header>
+            </Context>
+          </AppProvider>
+        </ReciterExtraDetailsContext>
+      </BrowserRouter>
     </div>
   );
 }
