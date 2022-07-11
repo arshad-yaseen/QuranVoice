@@ -13,6 +13,7 @@
     "gsap": "^3.10.2",
     "imports-loader": "^3.1.1",
     "jquery": "^3.6.0",
+    "parallax-js": "^3.1.0",
     "phonegap-plugin-speech-recognition": "github:macdonst/SpeechRecognitionPlugin",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

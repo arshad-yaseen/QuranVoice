@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { AllReciters } from "./Context";
+import { AllReciters } from "../context/Context";
 import { mainSearchValue } from "./Header";
 import { Link } from "react-router-dom";
 import { GetReciterFunction } from "../context/AppProvider";
@@ -17,9 +17,11 @@ function Reciters() {
     let body = document.querySelector("body");
     body.style.backgroundColor = "#f3f6f8";
     setReciters(fullReciters);
+   header.style.opacity = "1";
   }, []);
 
   useEffect(() => {
+    document.querySelector("header").style.visibility = "visible";
     let recitersWrapper = document.getElementById("recitersWrapper");
     recitersWrapper.addEventListener("scroll", (event) => {
       let maxScrollValue = 18203.5;
@@ -52,19 +54,23 @@ function Reciters() {
       }
     })
     .map((reciter) => {
+      let MojawwadResult = reciter.Server.includes("Mojawwad")
+      let MaulimResult = reciter.Server.includes("lim")
+      let QurashiResult = reciter.Server.includes("qurashi")
       return (
         <Link
           onClick={() => {
             ReciterFunction({
               reciterName: reciter.name,
               reciterId: reciter.id,
-              reciterServer: reciter.Server
+              reciterServer: reciter.Server,
+              reciterRewaya: reciter.rewaya
             });
             localStorage.setItem("reciterName", reciter.name);
             localStorage.setItem("reciterId", reciter.id);
-            localStorage.setItem("reciterServer", reciter.Server);
+            localStorage.setItem(reciter.id, reciter.Server);
           }}
-          to="/recitations"
+          to={`/recitations/${reciter.id}`}
         >
           <div
             onClick={() => {
@@ -74,11 +80,19 @@ function Reciters() {
           >
             <h3>{reciter.name}</h3>
           </div>
+            <h5 className="reciters-rewaya" >{`${reciter.rewaya}   (${MojawwadResult == true ? 'al mojawwad' : MaulimResult == true ? 'al molim' : QurashiResult == true ? 'qurashi' : 'normal'})`}</h5>
         </Link>
       );
+      
     });
 
+
+    // TODO Reciter Search Open
   function reciterSearchhandler() {
+    setTimeout(()=> {
+      let responsiveBar = document.getElementById('responsiveBar');
+    responsiveBar.style.visibility='hidden'
+    },300)
     let search = document.getElementById("search");
     search.style.top = "0";
     let searchCloseIcon = document.querySelector(".searchCloseIcon");
@@ -96,7 +110,7 @@ function Reciters() {
             <div id="scrollBar" className="scroll-bar"></div>
           </div>
           <h5 onClick={reciterSearchhandler} className="reciter-search-option">
-            <i class="fa-solid fa-magnifying-glass"></i> Search reciter
+            <i className="fa-solid fa-magnifying-glass"></i> Search reciter
           </h5>
         </div>
       </div>

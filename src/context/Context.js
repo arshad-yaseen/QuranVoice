@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 
 export const AllReciters = React.createContext();
 export const AllChapters = React.createContext();
@@ -15,7 +15,7 @@ export function Context(props) {
     let API_URL = url;
     let response = await fetch(API_URL);
     let data = await response.json();
-    setReciters(data.reciters);
+    setReciters(data.reciters)
     setLoading(false);
   }
   async function getChapters() {
