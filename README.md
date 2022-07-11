@@ -1,4 +1,4 @@
-## This Website Was Made With React and `PWA` So ( You Can Download The App )
+## This Website Was Made With `React` and `PWA` So ( `You Can Download The App` )
 
 # Demo
 https://quranvoice.netlify.app
